@@ -15,12 +15,13 @@ const eventManager = (() => {
 
         return new Promise((resolve, reject) => {
             screen.loginScreen.on('click', cachedScreen.btnLoginId, (ev) => {
-                promiseLogic(apiRequests.loginUser, resolve, reject);
-
+                const promise = promiseLogic(apiRequests.loginUser, resolve, reject);
+                return promise;
             });
 
             screen.loginScreen.on('click', cachedScreen.btnSignupId, (ev) => {
-                promiseLogic(apiRequests.createUser, resolve, reject);
+                const promise = promiseLogic(apiRequests.createUser, resolve, reject);
+                return promise;
             });
         });
 
@@ -37,7 +38,7 @@ const eventManager = (() => {
                 reject('invalid password');
             }
 
-            apiRequest(username, password)
+            return apiRequest(username, password)
                 .then(resolve)
                 .catch(reject);
         }

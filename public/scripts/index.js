@@ -5,5 +5,6 @@ $(() => {
 
     loginScreen.displayLoginScreen(loginScreenTemplate, contentContainer)
         .then(eventManager.attachLoginButtonsEvents)
+        .then(console.log)
         .catch(console.log);
 });

@@ -10,7 +10,7 @@ const storage = (() => {
     }
 
     const userIdGenerator = IdGenerator();
-    const users = [];
+    const existingUsersStorage = [];
 
     function verifyUser(user) {
 
@@ -21,7 +21,7 @@ const storage = (() => {
             const userWithUsername = findUserByUsername(user.username);
             if (!userWithUsername) {
                 user.id = userIdGenerator.next().value;
-                users.push(user);
+                existingUsersStorage.push(user);
                 resolve(user);
             } else {
                 reject(userWithUsername);
@@ -30,7 +30,7 @@ const storage = (() => {
     }
 
     function findUserByUsername(username) {
-        const userWithUsername = _.find(users, (user) => user.username === username);
+        const userWithUsername = _.find(existingUsersStorage, (user) => user.username === username);
         return userWithUsername;
     }
 
@@ -41,3 +41,5 @@ const storage = (() => {
         }
     };
 })();
+
+module.exports = storage;
