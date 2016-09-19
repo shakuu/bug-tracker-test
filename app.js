@@ -21,15 +21,15 @@ app.put('/api/user', (request, response) => {
                     user: user.username,
                     message: 'success'
                 });
+        })
+        .catch((user) => {
+            response
+                .status(401)
+                .json({
+                    username: user.username,
+                    message: 'Incorrect username or password'
+                });
         });
-    // .catch((user) => {
-    //     response
-    //         .status(401)
-    //         .json({
-    //             username: user.username,
-    //             message: 'Incorrect username or password'
-    //         });
-    // });
 });
 
 app.post('/api/user', (request, response) => {

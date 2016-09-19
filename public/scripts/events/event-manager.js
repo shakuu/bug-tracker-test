@@ -6,26 +6,24 @@ const eventManager = (() => {
 
     let cachedScreen;
 
-    function attachLoginButtonsEvents(screen) {
+    function attachLoginButtonsEvents(screen, success, fail) {
         cachedScreen = {
             screen: screen.loginScreen,
             btnLoginId: screen.btnLoginId,
             btnSignupId: screen.btnSignupId
         };
 
-        return new Promise((resolve, reject) => {
-            screen.loginScreen.on('click', cachedScreen.btnLoginId, (ev) => {
-                const promise = promiseLogic(apiRequests.loginUser, resolve, reject);
-                return promise;
-            });
-
-            screen.loginScreen.on('click', cachedScreen.btnSignupId, (ev) => {
-                const promise = promiseLogic(apiRequests.createUser, resolve, reject);
-                return promise;
-            });
+        cachedScreen.screen.on('click', cachedScreen.btnLoginId, () => {
+            createApiRequest(apiRequests.loginUser, success, fail);
         });
 
-        function promiseLogic(apiRequest, resolve, reject) {
+        cachedScreen.screen.on('click', cachedScreen.btnSignupId, () => {
+            createApiRequest(apiRequests.createUser, success, fail);
+        });
+
+        return screen;
+
+        function createApiRequest(apiRequest, resolve, reject) {
             const username = getInput(cachedScreen.screen, INPUT_USERNAME);
             const isValidUsername = checkIfInputIsValid(username);
             if (!isValidUsername) {
