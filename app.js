@@ -8,12 +8,34 @@ app.use(bodyParser.json());
 
 app.put('/api/user', (request, response) => {
     console.log(request.body);
+    const user = {
+        username: request.body.username,
+        password: request.body.password
+    };
+
+    storage.users.verifyUser(user)
+        .then((user) => {
+            response
+                .status(201)
+                .json({
+                    user: user.username,
+                    message: 'success'
+                });
+        });
+    // .catch((user) => {
+    //     response
+    //         .status(401)
+    //         .json({
+    //             username: user.username,
+    //             message: 'Incorrect username or password'
+    //         });
+    // });
 });
 
 app.post('/api/user', (request, response) => {
     const user = {
         username: request.body.username,
-        passowrd: request.body.password
+        password: request.body.password
     };
 
     storage.users.createUser(user)
@@ -22,10 +44,10 @@ app.post('/api/user', (request, response) => {
                 .status(201)
                 .json(user.username);
         })
-        .catch((user) => {
+        .catch((error) => {
             response
                 .status(401)
-                .json(user.username);
+                .json(error.message);
         });
 });
 

@@ -13,7 +13,32 @@ const storage = (() => {
     const existingUsersStorage = [];
 
     function verifyUser(user) {
+        return new Promise((resolve, reject) => {
+            const existingUserWithUsername = findUserByUsername(user.username);
+            if (existingUserWithUsername) {
+                const isValidPassword = verifyPassword(existingUserWithUsername, user);
+                if (isValidPassword) {
+                    resolve(user);
+                }
+            }
 
+            reject(user);
+        });
+
+        function verifyPassword(existingUser, inputUser) {
+            let isMatch = true;
+            const wordsCount = existingUser.password.length;
+            for (let word = 0; word < wordsCount; word += 1) {
+                const existingWord = existingUser.password[word];
+                const inputWord = inputUser.password[word];
+                if (existingWord != inputWord) {
+                    isMatch = false;
+                    break;
+                }
+            }
+
+            return isMatch;
+        }
     }
 
     function createUser(user) {
