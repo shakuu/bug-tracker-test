@@ -1,4 +1,7 @@
-const eventManager = (() => {
+import 'jquery';
+import {apiRequests} from 'api-requests';
+
+export const eventManager = (() => {
     'use strict';
     const INPUT_USERNAME = '#input-username',
         INPUT_PASSWORD = '#input-password',
@@ -28,12 +31,14 @@ const eventManager = (() => {
             const isValidUsername = checkIfInputIsValid(username);
             if (!isValidUsername) {
                 reject('invalid username');
+                return;
             }
 
             const password = getInput(cachedScreen.screen, INPUT_PASSWORD);
             const isValidPassword = checkIfInputIsValid(password);
             if (!isValidPassword) {
                 reject('invalid password');
+                return;
             }
 
             return apiRequest(username, password)

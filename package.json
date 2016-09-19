@@ -12,6 +12,8 @@
   "dependencies": {
     "body-parser": "~1.15.2",
     "express": "~4.14.0",
-    "lodash": "~4.15.0"
+    "lodash": "~4.15.0",
+    "systemjs": "^0.19.38",
+    "systemjs-plugin-babel": "0.0.15"
   }
 }

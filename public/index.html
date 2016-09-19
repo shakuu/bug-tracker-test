@@ -64,12 +64,11 @@
         </div>
     </script>
 
-    <script type="text/javascript" src="./bower_components/jquery/dist/jquery.js"></script>
-    <script type="text/javascript" src="./bower_components/crypto-js/crypto-js.js"></script>
-    <script type="text/javascript" src="./scripts/index.js"></script>
-    <script type="text/javascript" src="./scripts/screens/login-screen.js"></script>
-    <script type="text/javascript" src="./scripts/events/event-manager.js"></script>
-    <script type="text/javascript" src="./scripts/events/api-requests.js"></script>
+    <script type="text/javascript" src="./bower_components/systemjs/dist/system.js"></script>
+    <script type="text/javascript" src="./system-config.js"></script>
+    <script>
+        System.import('main');
+    </script>
 </body>
 
 </html>

@@ -16,9 +16,10 @@ const storage = (() => {
         return new Promise((resolve, reject) => {
             const existingUserWithUsername = findUserByUsername(user.username);
             if (existingUserWithUsername) {
-                const isValidPassword = verifyPassword(existingUserWithUsername, user);
-                if (isValidPassword) {
+                const isMatchingPassword = verifyPassword(existingUserWithUsername, user);
+                if (isMatchingPassword) {
                     resolve(user);
+                    return;
                 }
             }
 
@@ -48,8 +49,10 @@ const storage = (() => {
                 user.id = userIdGenerator.next().value;
                 existingUsersStorage.push(user);
                 resolve(user);
+                return;
             } else {
                 reject(userWithUsername);
+                return;
             }
         });
     }

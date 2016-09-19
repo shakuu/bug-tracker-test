@@ -1,3 +1,5 @@
+import 'jquery';
+
 const loginScreen = (() => {
     'use strict';
     const loginScreenElementId = '#login-screen';
@@ -75,3 +77,7 @@ const loginScreen = (() => {
         hideLoginScreen
     };
 })();
+
+export {
+    loginScreen
+}

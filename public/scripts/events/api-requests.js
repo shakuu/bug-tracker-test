@@ -1,4 +1,6 @@
-const apiRequests = (() => {
+import * as CryptoJS from 'cryptojs';
+
+export const apiRequests = (() => {
     const URL_USERS = 'api/user';
 
     function loginUser(user, pass) {

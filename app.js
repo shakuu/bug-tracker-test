@@ -4,10 +4,10 @@ const storage = require('./storage/storage');
 
 const app = express();
 app.use(express.static('public'));
+app.use(express.static('node_modules'));
 app.use(bodyParser.json());
 
 app.put('/api/user', (request, response) => {
-    console.log(request.body);
     const user = {
         username: request.body.username,
         password: request.body.password
@@ -16,7 +16,7 @@ app.put('/api/user', (request, response) => {
     storage.users.verifyUser(user)
         .then((user) => {
             response
-                .status(201)
+                .status(202)
                 .json({
                     user: user.username,
                     message: 'success'
@@ -24,7 +24,7 @@ app.put('/api/user', (request, response) => {
         })
         .catch((user) => {
             response
-                .status(401)
+                .status(400)
                 .json({
                     username: user.username,
                     message: 'Incorrect username or password'
@@ -46,7 +46,7 @@ app.post('/api/user', (request, response) => {
         })
         .catch((user) => {
             response
-                .status(401)
+                .status(400)
                 .json({
                     username: user.username,
                     message: 'Username exists'
