@@ -15,18 +15,24 @@ const loginScreen = (() => {
                 reject('could not find template');
             }
 
-            const btnLoginEventIsAttached = attachEventToButton(loginScreen, btnLoginId, signInUser);
-            if (!btnLoginEventIsAttached) {
+            const btnLogin = $(loginScreen).find(btnLoginId);
+            if (btnLogin.length === 0) {
                 reject(`could not find ${btnLoginId}`);
             }
 
-            const btnSignupEventIsAttached = attachEventToButton(loginScreen, btnSignupId, createUser);
-            if (!btnSignupEventIsAttached) {
+            const btnSignup = $(loginScreen).find(btnSignupId);
+            if (btnSignup.length === 0) {
                 reject(`could not find ${btnSignupId}`);
             }
 
+            const toResolve = {
+                loginScreen,
+                btnLoginId,
+                btnSignupId
+            };
+
             $(container).append(loginScreen);
-            resolve(loginScreen);
+            resolve(toResolve);
         });
     }
 
@@ -46,23 +52,23 @@ const loginScreen = (() => {
         });
     }
 
-    function attachEventToButton(container, buttonId, callback) {
-        const buttonElement = container.find(buttonId);
-        if (buttonElement.length === 0) {
-            return false;
-        }
+    // function attachEventToButton(container, buttonId, callback) {
+    //     const buttonElement = container.find(buttonId);
+    //     if (buttonElement.length === 0) {
+    //         return false;
+    //     }
 
-        container.on('click', buttonId, callback);
-        return true;
-    }
+    //     container.on('click', buttonId, callback);
+    //     return true;
+    // }
 
-    function signInUser(event) {
-        console.log('signInUser');
-    }
+    // function signInUser(event) {
+    //     console.log('signInUser');
+    // }
 
-    function createUser(event) {
-        console.log('createUser');
-    }
+    // function createUser(event) {
+    //     console.log('createUser');
+    // }
 
     return {
         displayLoginScreen,

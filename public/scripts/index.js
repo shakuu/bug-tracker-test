@@ -4,6 +4,6 @@ $(() => {
         loginScreenTemplate = $('#login-screen-template');
 
     loginScreen.displayLoginScreen(loginScreenTemplate, contentContainer)
-        .then(console.log)
+        .then(eventManager.attachLoginButtonsEvents)
         .catch(console.log);
 });
