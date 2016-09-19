@@ -18,12 +18,19 @@ const storage = (() => {
             if (existingUserWithUsername) {
                 const isMatchingPassword = verifyPassword(existingUserWithUsername, user);
                 if (isMatchingPassword) {
-                    resolve(user);
-                    return;
+
+                    user.status = true;
+                    user.message = 'Succesful login.';
+                } else {
+                    user.status = false;
+                    user.message = 'Invalid password.';
                 }
+            } else {
+                user.status = false;
+                user.message = 'Invalid username.';
             }
 
-            reject(user);
+            resolve(user);
         });
 
         function verifyPassword(existingUser, inputUser) {
@@ -48,12 +55,14 @@ const storage = (() => {
             if (!userWithUsername) {
                 user.id = userIdGenerator.next().value;
                 existingUsersStorage.push(user);
-                resolve(user);
-                return;
-            } else {
-                reject(userWithUsername);
-                return;
+                user.status = true;
+                user.message = 'Successfully created user.';
+            } else if (userWithUsername) {
+                user.status = false;
+                user.message = 'Username already exists.';
             }
+
+            resolve(user);
         });
     }
 

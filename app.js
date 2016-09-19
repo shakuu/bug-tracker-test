@@ -17,10 +17,7 @@ app.put('/api/user', (request, response) => {
         .then((user) => {
             response
                 .status(202)
-                .json({
-                    user: user.username,
-                    message: 'success'
-                });
+                .json(user);
         })
         .catch((user) => {
             response
@@ -42,7 +39,7 @@ app.post('/api/user', (request, response) => {
         .then((user) => {
             response
                 .status(201)
-                .json(user.username);
+                .json(user);
         })
         .catch((user) => {
             response

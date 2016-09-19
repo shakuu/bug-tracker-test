@@ -14,8 +14,8 @@ $(() => {
             return screen;
         });
 
-    function loginSucceeded() {
-        console.log('success');
+    function loginSucceeded(user) {
+        console.log(user.message);
     }
 
     function loginFailed() {
