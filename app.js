@@ -44,10 +44,13 @@ app.post('/api/user', (request, response) => {
                 .status(201)
                 .json(user.username);
         })
-        .catch((error) => {
+        .catch((user) => {
             response
                 .status(401)
-                .json(error.message);
+                .json({
+                    username: user.username,
+                    message: 'Username exists'
+                });
         });
 });
 
