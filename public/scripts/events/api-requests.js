@@ -5,7 +5,7 @@ const apiRequests = (() => {
         const hash = CryptoJS.SHA256(pass);
         const requestBody = {
             username: user,
-            password: hash
+            password: hash.words
         };
 
         return new Promise((resolve, reject) => {
@@ -24,10 +24,9 @@ const apiRequests = (() => {
         const hash = CryptoJS.SHA256(pass);
         const requestBody = {
             username: user,
-            password: hash
+            password: hash.words
         };
 
-        const test = JSON.stringify(requestBody);
         return new Promise((resolve, reject) => {
             $.ajax({
                 type: 'POST',
