@@ -4,7 +4,6 @@ const storage = require('./storage/storage');
 
 const app = express();
 app.use(express.static('public'));
-app.use(express.static('node_modules'));
 app.use(bodyParser.json());
 
 app.put('/api/user', (request, response) => {
@@ -19,13 +18,10 @@ app.put('/api/user', (request, response) => {
                 .status(202)
                 .json(user);
         })
-        .catch((user) => {
+        .catch((error) => {
             response
                 .status(400)
-                .json({
-                    username: user.username,
-                    message: 'Incorrect username or password'
-                });
+                .json(error);
         });
 });
 
@@ -41,13 +37,10 @@ app.post('/api/user', (request, response) => {
                 .status(201)
                 .json(user);
         })
-        .catch((user) => {
+        .catch((error) => {
             response
                 .status(400)
-                .json({
-                    username: user.username,
-                    message: 'Username exists'
-                });
+                .json(error);
         });
 });
 
