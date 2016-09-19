@@ -39,7 +39,7 @@ const eventManager = (() => {
 
             apiRequest(username, password)
                 .then(resolve)
-                .fail(reject);
+                .catch(reject);
         }
 
         function getInput(screen, element) {
