@@ -15,6 +15,12 @@
         </section>
     </div>
 
+    <script id="warning-message-template" type="text/template">
+   
+        <div class="alert alert-danger" role="alert"><span class="glyphicon glyphicon-asterisk col-md-1 col-md-offset-1"></span></div>
+        
+    </script>
+
     <script id="tickets-screen-template" type="text/template">
     <div id="tickets-screen" class="container-fluid">
         <nav class="navbar navbar-default">
@@ -85,11 +91,12 @@
                             <div class="container-fluid">
                             <div class="col-md-4"></div>
                             <div class="btn-group inline center-block">
-                                <button id="btn-login" type="button" class="btn btn-success col-md-2">Log in</button>
+                                <button id="btn-login" type="button" class="btn btn-success col-md-2 ">Log in</button>
                                 <button id="btn-signup" type="button" class="btn btn-primary col-md-2">Sign up</button>
                             </div>
                             </div>
                         </div>
+                        <div id="messages" class="row top-buffer"></div>
                     </div>
                 </div>
             </div>

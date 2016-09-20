@@ -27,8 +27,21 @@ $(() => {
             });
 
         function loginSucceeded(user) {
-            loginScreen.hideLoginScreen(contentContainer);
-            tickets(user);
+            if (user.status) {
+                loginScreen.hideLoginScreen(contentContainer);
+                tickets(user);
+            } else {
+                const message = $($('#warning-message-template').text());
+                message.append(user.message);
+                message.css({
+                    'margin-top': '20px'
+                });
+
+                const container = $('#login-screen').find('#messages');
+                container.children().remove();
+                container.append(message);
+            }
+
             console.log(user);
         }
 
