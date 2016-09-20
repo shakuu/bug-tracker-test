@@ -1,10 +1,25 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const storage = require('./storage/storage');
+const usersStorage = require('./storage/storage');
+const ticketsStorage = require('./storage/tickets-storage');
 
 const app = express();
 app.use(express.static('public'));
 app.use(bodyParser.json());
+
+app.get('/api/tickets', (request, response) => {
+    ticketsStorage.getExistingTickets()
+        .then((tickets) => {
+            response
+                .status(200)
+                .json(tickets);
+        })
+        .catch((error) => {
+            response
+                .status(400)
+                .json(error);
+        });
+});
 
 app.put('/api/user', (request, response) => {
     const user = {
@@ -12,7 +27,7 @@ app.put('/api/user', (request, response) => {
         password: request.body.password
     };
 
-    storage.users.verifyUser(user)
+    usersStorage.users.verifyUser(user)
         .then((user) => {
             response
                 .status(202)
@@ -31,7 +46,7 @@ app.post('/api/user', (request, response) => {
         password: request.body.password
     };
 
-    storage.users.createUser(user)
+    usersStorage.users.createUser(user)
         .then((user) => {
             response
                 .status(201)

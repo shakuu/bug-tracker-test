@@ -2,6 +2,7 @@ import 'jquery';
 import {loginScreen} from 'login-screen';
 import {ticketsScreen} from 'tickets-screen';
 import {eventManager} from 'event-manager';
+import {apiRequests} from 'api-requests';
 
 $(() => {
     'use strict';
@@ -11,12 +12,30 @@ $(() => {
         ticketsScreenTemplate = $('#tickets-screen-template');
 
     function tickets(user) {
+        let cachedScreen;
         ticketsScreen.displayTicketsScreen(ticketsScreenTemplate, contentContainer)
             .then(attachUser)
-            .then(attachLogOutButtonEvent);
+            .then(loadExistingTickets)
+            .then(attachLogOutButtonEvent)
+            .then(attachNewButtonEvent)
+            .then((screen) => {
+                cachedScreen = screen;
+            });
 
         function attachUser(screen) {
             $(screen.usernameField).html(user.username);
+            return screen;
+        }
+
+        function loadExistingTickets(screen) {
+            apiRequests.getAllTickets()
+                .then(displayTickets)
+                .catch(console.log);
+
+            return screen;
+        }
+
+        function attachNewButtonEvent(screen) {
             return screen;
         }
 
@@ -29,6 +48,12 @@ $(() => {
                 contentContainer.html('');
                 login();
             }
+
+            return screen;
+        }
+
+        function displayTickets(tickets) {
+            console.log(tickets);
         }
     }
 
@@ -58,14 +83,14 @@ $(() => {
 
         function loginFailed(error) {
             const message = $($('#warning-message-template').text());
-                message.append(error);
-                message.css({
-                    'margin-top': '20px'
-                });
+            message.append(error);
+            message.css({
+                'margin-top': '20px'
+            });
 
-                const container = $('#login-screen').find('#messages');
-                container.children().remove();
-                container.append(message);
+            const container = $('#login-screen').find('#messages');
+            container.children().remove();
+            container.append(message);
         }
     }
 

@@ -3,6 +3,14 @@ import * as CryptoJS from 'cryptojs';
 export const apiRequests = (() => {
     const URL_USERS = 'api/user';
 
+    function getAllTickets() {
+        return new Promise((resolve, reject) => {
+            $.getJSON('api/tickets')
+                .done(resolve)
+                .fail(reject);
+        });
+    }
+
     function loginUser(user, pass) {
         const hash = CryptoJS.SHA256(pass);
         const requestBody = {
@@ -43,6 +51,7 @@ export const apiRequests = (() => {
 
     return {
         loginUser,
-        createUser
+        createUser,
+        getAllTickets
     };
 })();
