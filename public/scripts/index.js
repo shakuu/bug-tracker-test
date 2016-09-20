@@ -12,10 +12,23 @@ $(() => {
 
     function tickets(user) {
         ticketsScreen.displayTicketsScreen(ticketsScreenTemplate, contentContainer)
-            .then(attachUser);
+            .then(attachUser)
+            .then(attachLogOutButtonEvent);
 
         function attachUser(screen) {
             $(screen.usernameField).html(user.username);
+            return screen;
+        }
+
+        function attachLogOutButtonEvent(screen) {
+            const button = $(screen.btnLogout);
+            button.on('click', logOut);
+
+            function logOut() {
+                button.off('click');
+                contentContainer.html('');
+                login();
+            }
         }
     }
 
@@ -45,8 +58,16 @@ $(() => {
             console.log(user);
         }
 
-        function loginFailed() {
-            console.log('failed');
+        function loginFailed(error) {
+            const message = $($('#warning-message-template').text());
+                message.append(error);
+                message.css({
+                    'margin-top': '20px'
+                });
+
+                const container = $('#login-screen').find('#messages');
+                container.children().remove();
+                container.append(message);
         }
     }
 

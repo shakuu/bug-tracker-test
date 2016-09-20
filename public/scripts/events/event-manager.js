@@ -58,7 +58,7 @@ export const eventManager = (() => {
         }
     }
 
-    function detachLoginButtonsEvents(buttons) {
+    function detachLoginButtonsEvents() {
         cachedScreen.off('click');
     }
 
