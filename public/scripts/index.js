@@ -54,8 +54,6 @@ $(() => {
                 container.children().remove();
                 container.append(message);
             }
-
-            console.log(user);
         }
 
         function loginFailed(error) {

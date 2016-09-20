@@ -15,10 +15,30 @@
         </section>
     </div>
 
+    <script id="ticket-template" type="text/template">
+    <div class="row">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <p>Ticket #<span id="ticket-id"></span></p>
+            </div>
+            <div class="panel-body">
+                <p id="description"></p>
+            </div>
+            <div class="panel-footer">
+                <p>
+                    <span id="authro"></span>
+                    <span id="date"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+    </script>
+
     <script id="warning-message-template" type="text/template">
-   
-        <div class="alert alert-danger" role="alert"><span class="glyphicon glyphicon-asterisk col-md-1 col-md-offset-1"></span></div>
-        
+        <div class="alert alert-danger" role="alert">
+            <span class="glyphicon glyphicon-exclamation-sign col-md-1 col-md-offset-1">
+            </span>
+        </div>   
     </script>
 
     <script id="tickets-screen-template" type="text/template">
@@ -36,14 +56,19 @@
                     <a class="navbar-brand" href="#">Bug Tracker</a>
                 </div>
 
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <ul class="nav navbar-nav">
-
+                <div class="collapse navbar-collapse " id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav ">
+                        <li>
+                            <button id="btn-create-new" type="button" class="btn btn-success navbar-btn" aria-label="Left Align">
+                                New
+                                <!--<span class ="glyphicon glyphicon-plus " aria-hidden="true"></span>-->
+                            </button>
+                        </li>          
                     </ul>
 
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><button id="username" class="btn btn-link navbar-btn">Username</button></li>
-                        <li><button id="btn-logout" type="button" class="btn btn-danger navbar-btn">Log out</button></li>
+                    <ul class="nav navbar-nav navbar-right ">
+                        <li><button id="username" class="btn btn-link navbar-btn ">Username</button></li>
+                        <li><button id="btn-logout" type="button" class="btn btn-danger navbar-btn ">Log out</button></li>
                     </ul>
                 </div>
             </div>
