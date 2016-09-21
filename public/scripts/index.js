@@ -14,13 +14,15 @@ $(() => {
     function tickets(user) {
         let cachedScreen;
         ticketsScreen.displayTicketsScreen(ticketsScreenTemplate, contentContainer)
+            .then((screen) => {
+                cachedScreen = screen;
+                return screen;
+            })
             .then(attachUser)
             .then(loadExistingTickets)
             .then(attachLogOutButtonEvent)
-            .then(attachNewButtonEvent)
-            .then((screen) => {
-                cachedScreen = screen;
-            });
+            .then(attachNewButtonEvent);
+
 
         function attachUser(screen) {
             $(screen.usernameField).html(user.username);
@@ -53,6 +55,38 @@ $(() => {
         }
 
         function displayTickets(tickets) {
+            if (tickets.length === 0) {
+                tickets = [
+                    {
+                        id: 1,
+                        title: 'test',
+                        content: 'delete me',
+                        author: 'unknown',
+                        date: 'unknown'
+                    },
+                    {
+                        id: 2,
+                        title: 'test',
+                        content: 'delete me',
+                        author: 'unknown',
+                        date: 'unknown'
+                    }];
+            }
+
+            const container = $(cachedScreen.ticketsScreen).find('#tickets-container');
+
+            const ticketTemplate = $($('#ticket-template').text());
+            tickets.forEach(ticket => {
+                ticketTemplate.find('#ticket-id').html(ticket.id);
+                ticketTemplate.find('#ticket-title').html(ticket.title);
+                ticketTemplate.find('#content').html(ticket.content);
+                ticketTemplate.find('#author').html(ticket.author);
+                ticketTemplate.find('#date').html(ticket.date);
+
+                const clone = ticketTemplate.clone(true);
+                container.append(clone);
+            });
+
             console.log(tickets);
         }
     }
